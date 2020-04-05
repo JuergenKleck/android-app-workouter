@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/add_workout_tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_name" />
+
+            <EditText
+                android:id="@+id/add_workout_et_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:text="" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/add_workout_tv_device"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_devices" />
+
+            <AutoCompleteTextView
+                android:id="@+id/add_workout_ac_device"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/add_workout_blank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal">
+
+                <ListView
+                    android:id="@+id/workout_device_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></ListView>
+
+                <Button
+                    android:id="@+id/btn_workout_add_exercise"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:text="+" />
+
+
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/add_workout_tv_perc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/text_max_weight_perc" />
+
+            <EditText
+                android:id="@+id/add_workout_perc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:text="" />
+<!--
+            <LinearLayout android:layout_width="match_parent">
+
+                <Button
+                    android:id="@+id/add_workout_btn_perc_minus"
+                    android:layout_width="45dp"
+                    android:layout_height="match_parent"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/add_workout_tv_perc_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autofillHints="@string/hint_percentage"
+                    android:hint="@string/hint_percentage"
+                    android:text=""
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/add_workout_btn_perc_plus"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:text="+" />
+            </LinearLayout>
+-->
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/add_workout_tv_weekday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/text_weekday" />
+
+            <LinearLayout android:layout_width="match_parent"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:id="@+id/add_workout_ctv_day1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/weekday_1" />
+                <CheckBox
+                    android:id="@+id/add_workout_ctv_day2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/weekday_2" />
+                <CheckBox
+                    android:id="@+id/add_workout_ctv_day3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/weekday_3" />
+                <CheckBox
+                    android:id="@+id/add_workout_ctv_day4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/weekday_4" />
+                <CheckBox
+                    android:id="@+id/add_workout_ctv_day5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/weekday_5" />
+                <CheckBox
+                    android:id="@+id/add_workout_ctv_day6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/weekday_6" />
+                <CheckBox
+                    android:id="@+id/add_workout_ctv_day7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/weekday_7" />
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/add_workout_tv_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/text_order" />
+
+            <LinearLayout android:layout_width="match_parent">
+
+                <Button
+                    android:id="@+id/add_workout_btn_order_minus"
+                    android:layout_width="45dp"
+                    android:layout_height="match_parent"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/add_workout_tv_order_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autofillHints="@string/hint_order"
+                    android:hint="@string/hint_order"
+                    android:text=""
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/add_workout_btn_order_plus"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:text="+" />
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/add_workout_tv_endurance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/text_endurance" />
+
+            <Switch
+                android:id="@+id/add_workout_sw_endurance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/add_workout_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/text_add" />
+
+        <Button
+            android:id="@+id/copy_workout_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/text_copy" />
+
+        <Button
+            android:id="@+id/remove_workout_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/text_remove" />
+
+    </LinearLayout>
+
+</LinearLayout>
