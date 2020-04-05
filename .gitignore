@@ -28,6 +28,6 @@ hs_err_pid*
 
 # Additional folders
 target
-build
-.gradle
 local.properties
+/build/
+/.gradle/
