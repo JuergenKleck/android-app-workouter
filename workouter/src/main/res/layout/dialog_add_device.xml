@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/add_device_tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_name" />
+
+            <EditText
+                android:id="@+id/add_device_et_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:text="" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/add_device_tv_weightstep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_weight_steps" />
+
+            <EditText
+                android:id="@+id/add_device_et_weightstep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/hint_weight"
+                android:ems="10"
+                android:hint="@string/hint_weight"
+                android:inputType="numberSigned|numberDecimal"
+                android:text="" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/add_device_tv_startweight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_start_weight" />
+
+            <EditText
+                android:id="@+id/add_device_et_startweight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/hint_weight"
+                android:ems="10"
+                android:hint="@string/hint_weight"
+                android:inputType="numberSigned|numberDecimal"
+                android:text="" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/add_device_tv_maxweight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/text_max_weight" />
+
+            <LinearLayout android:layout_width="match_parent">
+
+                <Button
+                    android:id="@+id/add_device_btn_maxweight_minus"
+                    android:layout_width="45dp"
+                    android:layout_height="match_parent"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/add_device_tv_maxweight_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@string/hint_weight"
+                    android:hint="@string/hint_weight"
+                    android:text=""
+                    android:layout_weight="1"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/add_device_btn_maxweight_plus"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:text="+" />
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/add_device_tv_persmaxweight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/text_pers_max_weight" />
+
+            <LinearLayout android:layout_width="match_parent">
+
+                <Button
+                    android:id="@+id/add_device_btn_persmaxweight_minus"
+                    android:layout_width="45dp"
+                    android:layout_height="match_parent"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/add_device_tv_persmaxweight_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@string/hint_weight"
+                    android:hint="@string/hint_weight"
+                    android:text=""
+                    android:layout_weight="1"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/add_device_btn_persmaxweight_plus"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:text="+" />
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/add_device_tv_difficulty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_difficulty" />
+
+            <EditText
+                android:id="@+id/add_device_et_difficulty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/hint_difficulty"
+                android:ems="10"
+                android:hint="@string/hint_difficulty"
+                android:inputType="numberSigned|numberDecimal"
+                android:text="" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/add_device_tv_ignore_perc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_ignore_percentage" />
+
+            <Switch
+                android:id="@+id/add_device_sw_ignore_perc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/add_device_tv_enduranceweight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/text_endurance" />
+
+            <LinearLayout android:layout_width="match_parent">
+
+                <Button
+                    android:id="@+id/add_device_btn_endurance_minus"
+                    android:layout_width="45dp"
+                    android:layout_height="match_parent"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/add_device_tv_endurance_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@string/hint_weight"
+                    android:hint="@string/hint_weight"
+                    android:text=""
+                    android:layout_weight="1"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/add_device_btn_endurance_plus"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:text="+" />
+            </LinearLayout>
+
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/add_device_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/text_add" />
+
+        <Button
+            android:id="@+id/remove_device_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/text_remove" />
+
+    </LinearLayout>
+
+</LinearLayout>
