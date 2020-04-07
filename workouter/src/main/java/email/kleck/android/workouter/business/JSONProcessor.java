@@ -19,6 +19,9 @@ import email.kleck.android.workouter.datamodel.Settings;
 import email.kleck.android.workouter.datamodel.Training;
 import email.kleck.android.workouter.datamodel.Workout;
 
+/**
+ * JSON processor handling the json data storage
+ */
 public class JSONProcessor implements StorageProcessor {
 
     @Override

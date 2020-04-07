@@ -40,15 +40,12 @@ public class DeviceFragment extends BaseFragment {
 
         FloatingActionButton fab = container.getRootView().findViewById(R.id.fab);
         toggleFAB(fab, true);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                populateDialogValues("", "", "", "", "", "", "", false);
-                currentObject = new Device();
-                currentObject.id = DataIntegrator.localAppStorage.getNextId();
-                currentObject.isNew = true;
-                addDialog.show();
-            }
+        fab.setOnClickListener(view -> {
+            populateDialogValues("", "", "", "", "", "", "", false);
+            currentObject = new Device();
+            currentObject.id = DataIntegrator.localAppStorage.getNextId();
+            currentObject.isNew = true;
+            addDialog.show();
         });
 
         updateLists(inflater);
@@ -196,19 +193,19 @@ public class DeviceFragment extends BaseFragment {
     private void updateWeightSteps() {
         String text = getEditTextValue(R.id.add_device_et_weightstep);
         if (text.length() > 0) {
-            currentObject.weightSteps = Float.valueOf(text);
+            currentObject.weightSteps = Float.parseFloat(text);
         } else {
             currentObject.weightSteps = 0f;
         }
         text = getEditTextValue(R.id.add_device_et_startweight);
         if (text.length() > 0) {
-            currentObject.startWeight = Float.valueOf(text);
+            currentObject.startWeight = Float.parseFloat(text);
         } else {
             currentObject.startWeight = 0f;
         }
     }
 
-    View.OnClickListener onBtnMaxWeightPlus = new View.OnClickListener() {
+    private View.OnClickListener onBtnMaxWeightPlus = new View.OnClickListener() {
         public void onClick(View v) {
             updateWeightSteps();
             if (currentObject.maxWeight < currentObject.startWeight) {
@@ -222,7 +219,7 @@ public class DeviceFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onBtnMaxWeightMinus = new View.OnClickListener() {
+    private View.OnClickListener onBtnMaxWeightMinus = new View.OnClickListener() {
         public void onClick(View v) {
             updateWeightSteps();
             currentObject.maxWeight -= currentObject.weightSteps;
@@ -240,7 +237,7 @@ public class DeviceFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onBtnPersMaxWeightPlus = new View.OnClickListener() {
+    private View.OnClickListener onBtnPersMaxWeightPlus = new View.OnClickListener() {
         public void onClick(View v) {
             updateWeightSteps();
             if (currentObject.personalMaxWeight < currentObject.startWeight) {
@@ -254,7 +251,7 @@ public class DeviceFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onBtnPersMaxWeightMinus = new View.OnClickListener() {
+    private View.OnClickListener onBtnPersMaxWeightMinus = new View.OnClickListener() {
         public void onClick(View v) {
             updateWeightSteps();
             currentObject.personalMaxWeight -= currentObject.weightSteps;
@@ -268,7 +265,7 @@ public class DeviceFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onBtnEnduranceWeightPlus = new View.OnClickListener() {
+    private View.OnClickListener onBtnEnduranceWeightPlus = new View.OnClickListener() {
         public void onClick(View v) {
             updateWeightSteps();
             if (currentObject.enduranceWeight < currentObject.startWeight) {
@@ -282,7 +279,7 @@ public class DeviceFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onBtnEnduranceWeightMinus = new View.OnClickListener() {
+    private View.OnClickListener onBtnEnduranceWeightMinus = new View.OnClickListener() {
         public void onClick(View v) {
             updateWeightSteps();
             currentObject.enduranceWeight -= currentObject.weightSteps;
@@ -296,22 +293,22 @@ public class DeviceFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onEditDialogOk = new View.OnClickListener() {
+    private View.OnClickListener onEditDialogOk = new View.OnClickListener() {
         public void onClick(View v) {
 
             currentObject.name = getEditTextValue(R.id.add_device_et_name);
 
             String weightSteps = getEditTextValue(R.id.add_device_et_weightstep);
-            if (weightSteps != null && !weightSteps.isEmpty())
-                currentObject.weightSteps = Float.valueOf(weightSteps);
+            if (!weightSteps.isEmpty())
+                currentObject.weightSteps = Float.parseFloat(weightSteps);
 
             String startWeight = getEditTextValue(R.id.add_device_et_startweight);
-            if (startWeight != null && !startWeight.isEmpty())
-                currentObject.startWeight = Float.valueOf(startWeight);
+            if (!startWeight.isEmpty())
+                currentObject.startWeight = Float.parseFloat(startWeight);
 
             String difficulty = getEditTextValue(R.id.add_device_et_difficulty);
-            if (difficulty != null && !difficulty.isEmpty())
-                currentObject.difficulty = Float.valueOf(difficulty);
+            if (!difficulty.isEmpty())
+                currentObject.difficulty = Float.parseFloat(difficulty);
 
             currentObject.ignorePercent = ((Switch) addDialog.findViewById(R.id.add_device_sw_ignore_perc)).isChecked();
 
@@ -330,7 +327,7 @@ public class DeviceFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onEditDialogRemove = new View.OnClickListener() {
+    private View.OnClickListener onEditDialogRemove = new View.OnClickListener() {
         public void onClick(View v) {
             // remove from workouts
             DataIntegrator.localAppStorage.workouts.forEach(workout -> workout.exercises.removeIf(exercise -> exercise.device.equals(currentObject)));

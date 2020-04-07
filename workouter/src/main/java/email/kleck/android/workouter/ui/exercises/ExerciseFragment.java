@@ -46,15 +46,12 @@ public class ExerciseFragment extends BaseFragment {
 
         FloatingActionButton fab = container.getRootView().findViewById(R.id.fab);
         toggleFAB(fab, true);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                populateDialogValues("", "", "", "", "", "");
-                currentObject = new Exercise();
-                currentObject.id = DataIntegrator.localAppStorage.getNextId();
-                currentObject.isNew = true;
-                addDialog.show();
-            }
+        fab.setOnClickListener(view -> {
+            populateDialogValues("", "", "", "", "", "");
+            currentObject = new Exercise();
+            currentObject.id = DataIntegrator.localAppStorage.getNextId();
+            currentObject.isNew = true;
+            addDialog.show();
         });
 
         updateLists(inflater);
@@ -170,7 +167,7 @@ public class ExerciseFragment extends BaseFragment {
                 tv.setText("");
             } else {
                 tv = row.findViewById(R.id.tbl_row_tv_2);
-                tv.setText(Integer.toString(exercise.repetitions) + " / " + Integer.toString(exercise.rounds));
+                tv.setText(exercise.repetitions + " / " + exercise.rounds);
                 tv.setTextSize(fontSize);
                 tv.setWidth(245);
                 tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -178,7 +175,7 @@ public class ExerciseFragment extends BaseFragment {
                 tv.setBackgroundColor(Color.parseColor(Constants.COLOR_DARK_GRAY));
 
                 tv = row.findViewById(R.id.tbl_row_tv_3);
-                tv.setText(Integer.toString(exercise.enduranceRepetitions) + " / " + Integer.toString(exercise.enduranceRounds));
+                tv.setText(exercise.enduranceRepetitions + " / " + exercise.enduranceRounds);
                 tv.setTextSize(fontSize);
                 tv.setWidth(245);
                 tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -192,7 +189,7 @@ public class ExerciseFragment extends BaseFragment {
         return ((EditText) addDialog.findViewById(id)).getText().toString();
     }
 
-    View.OnClickListener onBtnRepsPlus = new View.OnClickListener() {
+    private View.OnClickListener onBtnRepsPlus = new View.OnClickListener() {
         public void onClick(View v) {
             currentObject.repetitions += 1;
             if (currentObject.repetitions > 999) {
@@ -202,7 +199,7 @@ public class ExerciseFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onBtnRepsMinus = new View.OnClickListener() {
+    private View.OnClickListener onBtnRepsMinus = new View.OnClickListener() {
         public void onClick(View v) {
             currentObject.repetitions -= 1;
             if (currentObject.repetitions < 0) {
@@ -212,7 +209,7 @@ public class ExerciseFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onBtnRoundsPlus = new View.OnClickListener() {
+    private View.OnClickListener onBtnRoundsPlus = new View.OnClickListener() {
         public void onClick(View v) {
             currentObject.rounds += 1;
             if (currentObject.rounds > 999) {
@@ -222,7 +219,7 @@ public class ExerciseFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onBtnRoundsMinus = new View.OnClickListener() {
+    private View.OnClickListener onBtnRoundsMinus = new View.OnClickListener() {
         public void onClick(View v) {
             currentObject.rounds -= 1;
             if (currentObject.rounds < 0) {
@@ -232,7 +229,7 @@ public class ExerciseFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onBtnEndRepsPlus = new View.OnClickListener() {
+    private View.OnClickListener onBtnEndRepsPlus = new View.OnClickListener() {
         public void onClick(View v) {
             currentObject.enduranceRepetitions += 1;
             if (currentObject.enduranceRepetitions > 999) {
@@ -242,7 +239,7 @@ public class ExerciseFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onBtnEndRepsMinus = new View.OnClickListener() {
+    private View.OnClickListener onBtnEndRepsMinus = new View.OnClickListener() {
         public void onClick(View v) {
             currentObject.enduranceRepetitions -= 1;
             if (currentObject.enduranceRepetitions < 0) {
@@ -252,7 +249,7 @@ public class ExerciseFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onBtnEndRoundsPlus = new View.OnClickListener() {
+    private View.OnClickListener onBtnEndRoundsPlus = new View.OnClickListener() {
         public void onClick(View v) {
             currentObject.enduranceRounds += 1;
             if (currentObject.enduranceRounds > 999) {
@@ -262,7 +259,7 @@ public class ExerciseFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onBtnEndRoundsMinus = new View.OnClickListener() {
+    private View.OnClickListener onBtnEndRoundsMinus = new View.OnClickListener() {
         public void onClick(View v) {
             currentObject.enduranceRounds -= 1;
             if (currentObject.enduranceRounds < 0) {
@@ -272,14 +269,14 @@ public class ExerciseFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onEditDialogOk = new View.OnClickListener() {
+    private View.OnClickListener onEditDialogOk = new View.OnClickListener() {
         public void onClick(View v) {
 
             currentObject.device = getDeviceForExercise(getEditTextValue(R.id.add_exercise_ac_name));
 
             String time = getEditTextValue(R.id.add_exercise_et_time);
-            if (time != null && !time.isEmpty())
-                currentObject.time = Integer.valueOf(time);
+            if (!time.isEmpty())
+                currentObject.time = Integer.parseInt(time);
 
             if (currentObject.device.id != null && currentObject.device.id > 0L) {
                 if (currentObject.isNew)
@@ -297,7 +294,7 @@ public class ExerciseFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onEditDialogRemove = new View.OnClickListener() {
+    private View.OnClickListener onEditDialogRemove = new View.OnClickListener() {
         public void onClick(View v) {
             // remove from workouts
             DataIntegrator.localAppStorage.workouts.forEach(workout -> workout.exercises.remove(currentObject));

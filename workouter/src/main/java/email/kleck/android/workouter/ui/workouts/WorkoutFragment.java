@@ -1,5 +1,6 @@
 package email.kleck.android.workouter.ui.workouts;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,7 +21,6 @@ import androidx.annotation.NonNull;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import email.kleck.android.workouter.R;
@@ -39,8 +39,8 @@ public class WorkoutFragment extends BaseFragment {
 
     private Workout currentObject;
 
-    CustomExerciseAdapter selectedExercises;
-    AutoCompleteTextView autoCmpltTv;
+    private CustomExerciseAdapter selectedExercises;
+    private AutoCompleteTextView autoCmpltTv;
 
     private int textColor = 0;
     private float fontSize = 24f;
@@ -54,19 +54,16 @@ public class WorkoutFragment extends BaseFragment {
 
         FloatingActionButton fab = container.getRootView().findViewById(R.id.fab);
         toggleFAB(fab, true);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                populateDialogValues("", "", null, false, "1");
-                currentObject = new Workout();
-                currentObject.id = DataIntegrator.localAppStorage.getNextId();
-                currentObject.isNew = true;
-                currentObject.maxWeightPercentages = new float[0];
-                currentObject.weekdays = new int[0];
-                currentObject.order = 1;
-                selectedExercises.clear();
-                addDialog.show();
-            }
+        fab.setOnClickListener(view -> {
+            populateDialogValues("", "", null, false, "1");
+            currentObject = new Workout();
+            currentObject.id = DataIntegrator.localAppStorage.getNextId();
+            currentObject.isNew = true;
+            currentObject.maxWeightPercentages = new float[0];
+            currentObject.weekdays = new int[0];
+            currentObject.order = 1;
+            selectedExercises.clear();
+            addDialog.show();
         });
 
         updateLists(inflater);
@@ -75,16 +72,11 @@ public class WorkoutFragment extends BaseFragment {
 
         addDialog = new Dialog(this.getContext(), R.style.Theme_AppCompat_Light_Dialog);
         addDialog.setContentView(R.layout.dialog_add_workout);
-
         addDialog.findViewById(R.id.add_workout_btn).setOnClickListener(onEditDialogOk);
         addDialog.findViewById(R.id.remove_workout_btn).setOnClickListener(onEditDialogRemove);
         addDialog.findViewById(R.id.copy_workout_btn).setOnClickListener(onEditDialogCopy);
-
-//        addDialog.findViewById(R.id.add_workout_btn_perc_plus).setOnClickListener(onBtnPercentagePlus);
-//        addDialog.findViewById(R.id.add_workout_btn_perc_minus).setOnClickListener(onBtnPercentageMinus);
         addDialog.findViewById(R.id.add_workout_btn_order_plus).setOnClickListener(onBtnOrderPlus);
         addDialog.findViewById(R.id.add_workout_btn_order_minus).setOnClickListener(onBtnOrderMinus);
-
 
         autoCmpltTv = addDialog.findViewById(R.id.add_workout_ac_device);
         CustomExerciseAdapter adapter = new CustomExerciseAdapter(getContext(), new ArrayList<>(DataIntegrator.localAppStorage.exercises));
@@ -93,7 +85,7 @@ public class WorkoutFragment extends BaseFragment {
         autoCmpltTv.setOnItemClickListener(onAutoCompleteClick);
 
         ListView deviceList = addDialog.findViewById(R.id.workout_device_list);
-        selectedExercises = new CustomExerciseAdapter(getContext(), new ArrayList<Exercise>());
+        selectedExercises = new CustomExerciseAdapter(getContext(), new ArrayList<>());
         deviceList.setAdapter(selectedExercises);
         deviceList.setOnItemClickListener(onDeviceListClick);
 
@@ -173,9 +165,9 @@ public class WorkoutFragment extends BaseFragment {
         ((CheckBox) addDialog.findViewById(R.id.add_workout_ctv_day7)).setChecked(false);
         if (weekday != null) {
             int[] weekdays = Utility.stringToInt(weekday);
-            for (int i = 0; i < weekdays.length; i++) {
+            for (int value : weekdays) {
                 int id = -1;
-                switch (weekdays[i]) {
+                switch (value) {
                     case 1:
                         id = R.id.add_workout_ctv_day1;
                         break;
@@ -234,12 +226,7 @@ public class WorkoutFragment extends BaseFragment {
         tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         tv.setTextColor(textColor);
 
-        DataIntegrator.localAppStorage.workouts.sort(new Comparator<Workout>() {
-            @Override
-            public int compare(Workout w1, Workout w2) {
-                return w1.weekday.compareTo(w2.weekday);
-            }
-        });
+        DataIntegrator.localAppStorage.workouts.sort((w1, w2) -> w1.weekday.compareTo(w2.weekday));
 
         for (Workout workout : DataIntegrator.localAppStorage.workouts) {
             row = inflater.inflate(R.layout.tbl_row_3tv, tbl, false);
@@ -248,7 +235,7 @@ public class WorkoutFragment extends BaseFragment {
 
             int lines = 1;
             StringBuilder names = new StringBuilder();
-            names.append(workout.name + (workout.endurance ? " (End)" : ""));
+            names.append(workout.name).append(workout.endurance ? " (End)" : "");
             names.append(":\n");
             for (int i = 0; i < workout.exercises.size(); i++) {
                 if (workout.exercises.get(i) != null) {
@@ -336,7 +323,7 @@ public class WorkoutFragment extends BaseFragment {
     };
     */
 
-    View.OnClickListener onBtnOrderPlus = new View.OnClickListener() {
+    private View.OnClickListener onBtnOrderPlus = new View.OnClickListener() {
         public void onClick(View v) {
             currentObject.order += 1;
             if (currentObject.order > 99) {
@@ -346,7 +333,7 @@ public class WorkoutFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onBtnOrderMinus = new View.OnClickListener() {
+    private View.OnClickListener onBtnOrderMinus = new View.OnClickListener() {
         public void onClick(View v) {
             currentObject.order -= 1;
             if (currentObject.order < 1) {
@@ -356,11 +343,10 @@ public class WorkoutFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onEditDialogOk = new View.OnClickListener() {
+    private View.OnClickListener onEditDialogOk = new View.OnClickListener() {
         public void onClick(View v) {
 
             currentObject.name = getEditTextValue(R.id.add_workout_et_name);
-
             currentObject.endurance = ((Switch) addDialog.findViewById(R.id.add_workout_sw_endurance)).isChecked();
 
             List<Integer> days = new ArrayList<>();
@@ -422,7 +408,7 @@ public class WorkoutFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onEditDialogRemove = new View.OnClickListener() {
+    private View.OnClickListener onEditDialogRemove = new View.OnClickListener() {
         public void onClick(View v) {
             DataIntegrator.localAppStorage.workouts.remove(currentObject);
             DataIntegrator.writeData(getContext(), DataIntegrator.localAppStorage, null);
@@ -433,7 +419,7 @@ public class WorkoutFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener onEditDialogCopy = new View.OnClickListener() {
+    private View.OnClickListener onEditDialogCopy = new View.OnClickListener() {
         public void onClick(View v) {
             Workout workout = new Workout();
             workout.endurance = currentObject.endurance;
@@ -449,6 +435,5 @@ public class WorkoutFragment extends BaseFragment {
             addDialog.show();
         }
     };
-
 
 }
