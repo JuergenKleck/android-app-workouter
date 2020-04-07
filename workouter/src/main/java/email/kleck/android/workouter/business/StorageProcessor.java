@@ -21,7 +21,7 @@ public interface StorageProcessor {
      */
     default BaseItem getBaseItemById(List<? extends BaseItem> list, Long id) {
         for (BaseItem item : list) {
-            if (item.id == id) {
+            if (item.id.equals(id)) {
                 return item;
             }
         }

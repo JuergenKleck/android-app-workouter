@@ -1,5 +1,8 @@
 package email.kleck.android.workouter.business;
 
+/**
+ * Utility class
+ */
 public final class Utility {
 
     public static boolean isNotEmpty(String data) {
@@ -19,7 +22,7 @@ public final class Utility {
         String[] values = data.length() > 0 ? data.split(",") : new String[0];
         int[] ints = new int[values.length];
         for (int i = 0; i < values.length; i++) {
-            ints[i] = Integer.valueOf(values[i]);
+            ints[i] = Integer.parseInt(values[i]);
         }
         return ints;
     }
@@ -37,7 +40,7 @@ public final class Utility {
         String[] values = data.length() > 0 ? data.split(",") : new String[0];
         float[] floats = new float[values.length];
         for (int i = 0; i < values.length; i++) {
-            floats[i] = Float.valueOf(values[i]);
+            floats[i] = Float.parseFloat(values[i]);
         }
         return floats;
     }

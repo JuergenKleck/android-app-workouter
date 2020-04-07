@@ -19,6 +19,9 @@ import email.kleck.android.workouter.datamodel.Settings;
 import email.kleck.android.workouter.datamodel.Training;
 import email.kleck.android.workouter.datamodel.Workout;
 
+/**
+ * XML Processor handling the XML data storage
+ */
 public class XmlProcessor implements StorageProcessor {
 
     // We don't use namespaces

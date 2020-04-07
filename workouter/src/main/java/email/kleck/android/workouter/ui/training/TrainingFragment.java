@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
-import java.util.Comparator;
 
 import email.kleck.android.workouter.R;
 import email.kleck.android.workouter.business.DataIntegrator;
@@ -95,12 +94,7 @@ public class TrainingFragment extends BaseFragment {
             day = 7;
         }
 
-        DataIntegrator.localAppStorage.workouts.sort(new Comparator<Workout>() {
-            @Override
-            public int compare(Workout w1, Workout w2) {
-                return Integer.valueOf(w1.order).compareTo(Integer.valueOf(w2.order));
-            }
-        });
+        DataIntegrator.localAppStorage.workouts.sort((w1, w2) -> Integer.compare(w1.order, w2.order));
 
         for (Workout workout : DataIntegrator.localAppStorage.workouts) {
             if (!isWeekdayInDay(workout.weekday, day)) continue;
@@ -110,7 +104,7 @@ public class TrainingFragment extends BaseFragment {
 
 
             tv = row.findViewById(R.id.tbl_row_tv_1);
-            ((TableRow.LayoutParams)tv.getLayoutParams()).span = 3;
+            ((TableRow.LayoutParams) tv.getLayoutParams()).span = 3;
             tv.setText(workout.name + (workout.endurance ? " (Endurance)" : ""));
             tv.setTextSize(fontSize);
             tv.setTextColor(textColor);
@@ -164,12 +158,10 @@ public class TrainingFragment extends BaseFragment {
                     tv.setWidth(245);
                     tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     tv.setTextColor(textColor);
-                    if (repsRounds != null && !repsRounds.isEmpty())
+                    if (!repsRounds.isEmpty())
                         tv.setBackgroundColor(Color.parseColor(Constants.COLOR_DARK_GREEN));
                 }
             }
-
-
         }
     }
 

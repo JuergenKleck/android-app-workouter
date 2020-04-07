@@ -3,7 +3,7 @@ package email.kleck.android.workouter.business;
 /**
  * Factory class which will return an instance of the transformer
  */
-public final class StorageFactory {
+final class StorageFactory {
 
     /**
      * Create a storage processor based on the provided type
@@ -11,7 +11,7 @@ public final class StorageFactory {
      * @param storageType The enumeration to determine the processor
      * @return The processor instance or throws an exception
      */
-    public static StorageProcessor createProcessor(StorageType storageType) {
+    static StorageProcessor createProcessor(StorageType storageType) {
         if (StorageType.JSON == storageType) {
             return new JSONProcessor();
         } else if (StorageType.XML == storageType) {
