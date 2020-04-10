@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Workouter</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Workouter</string>
@@ -78,5 +77,6 @@
     <string name="weekday_6">Saturday</string>
     <string name="weekday_7">Sunday</string>
     <string name="unknown">Unknown</string>
+    <string name="title_workouter">Workouter</string>
 
 </resources>

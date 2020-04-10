@@ -1,2 +1,2 @@
-include ':workouter'
 rootProject.name='Workouter'
+include ':workouter'
