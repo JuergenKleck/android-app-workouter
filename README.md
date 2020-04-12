@@ -1,4 +1,4 @@
-# android-workouter
+# android-app-workouter
 
 Workouter Android app
 
