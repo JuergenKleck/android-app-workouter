@@ -30,15 +30,17 @@ public class DeviceFragment extends BaseFragment {
     private int textColor = 0;
     private float fontSize = 24f;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public int getViewLayout() {
+        return R.layout.fragment_devices;
+    }
 
-        root = inflater.inflate(R.layout.fragment_devices, container, false);
-
+    @Override
+    public void onFragmentCreateView(@NonNull LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         textColor = Color.rgb(DataIntegrator.localAppStorage.settings.cTextR, DataIntegrator.localAppStorage.settings.cTextG, DataIntegrator.localAppStorage.settings.cTextB);
         fontSize = Integer.valueOf(DataIntegrator.localAppStorage.settings.textSize).floatValue();
 
-        FloatingActionButton fab = container.getRootView().findViewById(R.id.fab);
+        FloatingActionButton fab = viewGroup.getRootView().findViewById(R.id.fab);
         toggleFAB(fab, true);
         fab.setOnClickListener(view -> {
             populateDialogValues("", "", "", "", "", "", "", false);
@@ -48,7 +50,7 @@ public class DeviceFragment extends BaseFragment {
             addDialog.show();
         });
 
-        updateLists(inflater);
+        updateLists(layoutInflater);
 
         root.setBackgroundColor(Color.rgb(DataIntegrator.localAppStorage.settings.cBackR, DataIntegrator.localAppStorage.settings.cBackG, DataIntegrator.localAppStorage.settings.cBackB));
 
@@ -64,8 +66,6 @@ public class DeviceFragment extends BaseFragment {
         addDialog.findViewById(R.id.add_device_btn_persmaxweight_minus).setOnClickListener(onBtnPersMaxWeightMinus);
         addDialog.findViewById(R.id.add_device_btn_endurance_plus).setOnClickListener(onBtnEnduranceWeightPlus);
         addDialog.findViewById(R.id.add_device_btn_endurance_minus).setOnClickListener(onBtnEnduranceWeightMinus);
-
-        return root;
     }
 
     private View.OnClickListener rowClickListener = new View.OnClickListener() {

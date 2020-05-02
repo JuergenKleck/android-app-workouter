@@ -1,7 +1,11 @@
 package email.kleck.android.workouter.ui;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import email.kleck.android.workouter.R;
@@ -10,20 +14,33 @@ import email.kleck.android.workouter.business.Utility;
 import email.kleck.android.workouter.datamodel.Device;
 import email.kleck.android.workouter.datamodel.Exercise;
 import email.kleck.android.workouter.datamodel.Workout;
+import info.simplyapps.appengine.PermissionHelper;
+import info.simplyapps.appengine.screens.IPermissionHandler;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements IPermissionHandler {
 
     protected View root;
+    protected PermissionHelper permissionHelper = new PermissionHelper();
 
-    protected String getNonNull(Object object) {
-        if (object != null) {
-            return object.toString();
-        }
-        return "";
+    public abstract int getViewLayout();
+
+    public abstract void onFragmentCreateView(@NonNull LayoutInflater inflater,
+                                              ViewGroup container, Bundle savedInstanceState);
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        permissionHelper.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 
-    public void toggleFAB(View superLayout, boolean show) {
-        superLayout.findViewById(R.id.fab).setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        if (getViewLayout() > 0) {
+            root = inflater.inflate(getViewLayout(), container, false);
+        }
+        onFragmentCreateView(inflater, container, savedInstanceState);
+        return root;
     }
 
     @Override
@@ -31,6 +48,25 @@ public abstract class BaseFragment extends Fragment {
         if (DataIntegrator.localAppStorage.dataChanged)
             DataIntegrator.writeData(getContext(), DataIntegrator.localAppStorage, null);
         super.onDestroyView();
+    }
+
+    @Override
+    public void onPermissionResult(String s, boolean b) {
+    }
+
+    public boolean checkPermission(String permission, Boolean alwaysAsk) {
+        return permissionHelper.checkPermission(getContext(), getActivity(), permission, alwaysAsk);
+    }
+
+    public void toggleFAB(View superLayout, boolean show) {
+        superLayout.findViewById(R.id.fab).setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    protected String getNonNull(Object object) {
+        if (object != null) {
+            return object.toString();
+        }
+        return "";
     }
 
     protected Device getDeviceForExercise(Long id) {

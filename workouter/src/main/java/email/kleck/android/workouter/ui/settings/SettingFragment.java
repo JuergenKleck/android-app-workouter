@@ -1,6 +1,8 @@
 package email.kleck.android.workouter.ui.settings;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.io.IOException;
@@ -33,15 +36,34 @@ public class SettingFragment extends BaseFragment {
     private Dialog addDialog;
     private ArrayAdapter<String> adapter;
     private AutoCompleteTextView mText;
+    private boolean hasPathExplorer;
+    private boolean isImport;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public int getViewLayout() {
+        return R.layout.fragment_settings;
+    }
+
+    @Override
+    public void onPermissionResult(String permission, boolean granted) {
+        if (!hasPathExplorer && granted && permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                activatePathExplorer();
+            }
+        } else if (isImport && granted && permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            doImport();
+        } else if (granted && permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            doExport();
+        }
+    }
+
+    @Override
+    public void onFragmentCreateView(@NonNull LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         SettingViewModel viewModel = new ViewModelProvider(this).get(SettingViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_settings, container, false);
         final TextView textView = root.findViewById(R.id.text_settings);
         viewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-        toggleFAB(container.getRootView().findViewById(R.id.fab), false);
+        toggleFAB(viewGroup.getRootView().findViewById(R.id.fab), false);
 
         root.findViewById(R.id.btn_settings_importexport).setOnClickListener(view -> addDialog.show());
 
@@ -51,20 +73,16 @@ public class SettingFragment extends BaseFragment {
         addDialog.findViewById(R.id.btn_export).setOnClickListener(onBtnExport);
 
         mText = addDialog.findViewById(R.id.import_export_ac_path);
-        mText.setOnKeyListener((view, i, keyEvent) -> {
-            if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_SLASH) {
-                String text = mText.getText().toString();
-                adapter.clear();
-                try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(text))) {
-                    for (Path path : directoryStream) {
-                        adapter.add(path.toString());
-                    }
-                } catch (IOException e) {
-                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+
+        isImport = false;
+        if (checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE, false)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                activatePathExplorer();
             }
-            return false;
-        });
+            hasPathExplorer = true;
+        } else {
+            hasPathExplorer = false;
+        }
         List<String> strings = new ArrayList<>();
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, strings);
         mText.setAdapter(adapter);
@@ -112,25 +130,52 @@ public class SettingFragment extends BaseFragment {
         seekTextSize.setOnSeekBarChangeListener(listeners.listenerTextSize);
 
         swtch.setOnCheckedChangeListener(listeners.listenerSwitch);
-
-        return root;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void activatePathExplorer() {
+        mText.setOnKeyListener((view, i, keyEvent) -> {
+            if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_SLASH) {
+                String text = mText.getText().toString();
+                adapter.clear();
+                try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(text))) {
+                    for (Path path : directoryStream) {
+                        adapter.add(path.toString());
+                    }
+                } catch (IOException e) {
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+            return false;
+        });
+    }
 
     private View.OnClickListener onBtnImport = new View.OnClickListener() {
         public void onClick(View v) {
-            String path = ((AutoCompleteTextView) addDialog.findViewById(R.id.import_export_ac_path)).getText().toString();
-            DataIntegrator.localAppStorage = DataIntegrator.readData(getContext(), path);
-            addDialog.dismiss();
+            isImport = true;
+            if (checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE, true)) {
+                doImport();
+            }
         }
     };
 
     private View.OnClickListener onBtnExport = new View.OnClickListener() {
         public void onClick(View v) {
-            String path = ((AutoCompleteTextView) addDialog.findViewById(R.id.import_export_ac_path)).getText().toString();
-            DataIntegrator.writeData(getContext(), DataIntegrator.localAppStorage, path);
-            addDialog.dismiss();
+            if (checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, true)) {
+                doExport();
+            }
         }
     };
 
+    private void doImport() {
+        String path = ((AutoCompleteTextView) addDialog.findViewById(R.id.import_export_ac_path)).getText().toString();
+        DataIntegrator.localAppStorage = DataIntegrator.readData(getContext(), path);
+        addDialog.dismiss();
+    }
+
+    private void doExport() {
+        String path = ((AutoCompleteTextView) addDialog.findViewById(R.id.import_export_ac_path)).getText().toString();
+        DataIntegrator.writeData(getContext(), DataIntegrator.localAppStorage, path);
+        addDialog.dismiss();
+    }
 }
