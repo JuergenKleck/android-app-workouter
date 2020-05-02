@@ -36,15 +36,17 @@ public class ExerciseFragment extends BaseFragment {
     private int textColor = 0;
     private float fontSize = 24f;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public int getViewLayout() {
+        return R.layout.fragment_exercises;
+    }
 
-        root = inflater.inflate(R.layout.fragment_exercises, container, false);
-
+    @Override
+    public void onFragmentCreateView(@NonNull LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         textColor = Color.rgb(DataIntegrator.localAppStorage.settings.cTextR, DataIntegrator.localAppStorage.settings.cTextG, DataIntegrator.localAppStorage.settings.cTextB);
         fontSize = Integer.valueOf(DataIntegrator.localAppStorage.settings.textSize).floatValue();
 
-        FloatingActionButton fab = container.getRootView().findViewById(R.id.fab);
+        FloatingActionButton fab = viewGroup.getRootView().findViewById(R.id.fab);
         toggleFAB(fab, true);
         fab.setOnClickListener(view -> {
             populateDialogValues("", "", "", "", "", "");
@@ -54,7 +56,7 @@ public class ExerciseFragment extends BaseFragment {
             addDialog.show();
         });
 
-        updateLists(inflater);
+        updateLists(layoutInflater);
 
         root.setBackgroundColor(Color.rgb(DataIntegrator.localAppStorage.settings.cBackR, DataIntegrator.localAppStorage.settings.cBackG, DataIntegrator.localAppStorage.settings.cBackB));
 
@@ -82,8 +84,6 @@ public class ExerciseFragment extends BaseFragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, strings);
         mText.setAdapter(adapter);
         mText.setText("");
-
-        return root;
     }
 
     private View.OnClickListener rowClickListener = new View.OnClickListener() {

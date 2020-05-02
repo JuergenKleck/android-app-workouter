@@ -25,6 +25,7 @@
     <string name="text_path">Path</string>
     <string name="text_config_restored">Configuration restored</string>
     <string name="text_config_exported">Configuration exported</string>
+    <string name="text_loaded_xml_backup">XML Backup restored</string>
 
     <string name="text_devices">Devices</string>
     <string name="text_difficulty">Difficulty</string>

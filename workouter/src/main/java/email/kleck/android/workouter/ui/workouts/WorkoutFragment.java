@@ -1,7 +1,7 @@
 package email.kleck.android.workouter.ui.workouts;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -45,14 +45,17 @@ public class WorkoutFragment extends BaseFragment {
     private int textColor = 0;
     private float fontSize = 24f;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_workouts, container, false);
+    @Override
+    public int getViewLayout() {
+        return R.layout.fragment_workouts;
+    }
 
+    @Override
+    public void onFragmentCreateView(@NonNull LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         textColor = Color.rgb(DataIntegrator.localAppStorage.settings.cTextR, DataIntegrator.localAppStorage.settings.cTextG, DataIntegrator.localAppStorage.settings.cTextB);
         fontSize = Integer.valueOf(DataIntegrator.localAppStorage.settings.textSize).floatValue();
 
-        FloatingActionButton fab = container.getRootView().findViewById(R.id.fab);
+        FloatingActionButton fab = viewGroup.getRootView().findViewById(R.id.fab);
         toggleFAB(fab, true);
         fab.setOnClickListener(view -> {
             populateDialogValues("", "", null, false, "1");
@@ -66,7 +69,7 @@ public class WorkoutFragment extends BaseFragment {
             addDialog.show();
         });
 
-        updateLists(inflater);
+        updateLists(layoutInflater);
 
         root.setBackgroundColor(Color.rgb(DataIntegrator.localAppStorage.settings.cBackR, DataIntegrator.localAppStorage.settings.cBackG, DataIntegrator.localAppStorage.settings.cBackB));
 
@@ -88,8 +91,6 @@ public class WorkoutFragment extends BaseFragment {
         selectedExercises = new CustomExerciseAdapter(getContext(), new ArrayList<>());
         deviceList.setAdapter(selectedExercises);
         deviceList.setOnItemClickListener(onDeviceListClick);
-
-        return root;
     }
 
     private AdapterView.OnItemClickListener onDeviceListClick = new AdapterView.OnItemClickListener() {
@@ -435,5 +436,4 @@ public class WorkoutFragment extends BaseFragment {
             addDialog.show();
         }
     };
-
 }

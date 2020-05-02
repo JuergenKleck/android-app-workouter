@@ -77,7 +77,12 @@ public final class DataIntegrator {
         } catch (Throwable e) {
             dataStorage = readDataFromXML(context, path);
             // something went wrong here
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+            if (dataStorage == null) {
+                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+            } else {
+                DataIntegrator.writeData(context, dataStorage, null);
+                Toast.makeText(context, R.string.text_loaded_xml_backup, Toast.LENGTH_SHORT).show();
+            }
         }
 
         if (dataStorage == null) {

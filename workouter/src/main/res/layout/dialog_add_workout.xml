@@ -94,32 +94,32 @@
                 android:ems="10"
                 android:inputType="text"
                 android:text="" />
-<!--
-            <LinearLayout android:layout_width="match_parent">
+            <!--
+                        <LinearLayout android:layout_width="match_parent">
 
-                <Button
-                    android:id="@+id/add_workout_btn_perc_minus"
-                    android:layout_width="45dp"
-                    android:layout_height="match_parent"
-                    android:text="-" />
+                            <Button
+                                android:id="@+id/add_workout_btn_perc_minus"
+                                android:layout_width="45dp"
+                                android:layout_height="match_parent"
+                                android:text="-" />
 
-                <TextView
-                    android:id="@+id/add_workout_tv_perc_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:autofillHints="@string/hint_percentage"
-                    android:hint="@string/hint_percentage"
-                    android:text=""
-                    android:textAlignment="center" />
+                            <TextView
+                                android:id="@+id/add_workout_tv_perc_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:autofillHints="@string/hint_percentage"
+                                android:hint="@string/hint_percentage"
+                                android:text=""
+                                android:textAlignment="center" />
 
-                <Button
-                    android:id="@+id/add_workout_btn_perc_plus"
-                    android:layout_width="45dp"
-                    android:layout_height="wrap_content"
-                    android:text="+" />
-            </LinearLayout>
--->
+                            <Button
+                                android:id="@+id/add_workout_btn_perc_plus"
+                                android:layout_width="45dp"
+                                android:layout_height="wrap_content"
+                                android:text="+" />
+                        </LinearLayout>
+            -->
         </TableRow>
 
         <TableRow
@@ -133,7 +133,8 @@
                 android:layout_gravity="center_vertical"
                 android:text="@string/text_weekday" />
 
-            <LinearLayout android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:orientation="vertical">
 
                 <CheckBox
@@ -142,36 +143,42 @@
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="@string/weekday_1" />
+
                 <CheckBox
                     android:id="@+id/add_workout_ctv_day2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="@string/weekday_2" />
+
                 <CheckBox
                     android:id="@+id/add_workout_ctv_day3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="@string/weekday_3" />
+
                 <CheckBox
                     android:id="@+id/add_workout_ctv_day4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="@string/weekday_4" />
+
                 <CheckBox
                     android:id="@+id/add_workout_ctv_day5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="@string/weekday_5" />
+
                 <CheckBox
                     android:id="@+id/add_workout_ctv_day6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="@string/weekday_6" />
+
                 <CheckBox
                     android:id="@+id/add_workout_ctv_day7"
                     android:layout_width="wrap_content"

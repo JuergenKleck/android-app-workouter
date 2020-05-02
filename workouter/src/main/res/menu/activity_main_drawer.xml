@@ -11,20 +11,20 @@
     </group>
 
     <item android:title="@string/configuration">
-            <menu>
-                <item
-                    android:id="@+id/nav_workouts"
-                    android:icon="@drawable/ic_menu_workouts"
-                    android:title="@string/menu_workouts" />
-                <item
-                    android:id="@+id/nav_exercises"
-                    android:icon="@drawable/ic_menu_exercises"
-                    android:title="@string/menu_exercises" />
-                <item
-                    android:id="@+id/nav_devices"
-                    android:icon="@drawable/ic_menu_devices"
-                    android:title="@string/menu_devices" />
-            </menu>
+        <menu>
+            <item
+                android:id="@+id/nav_workouts"
+                android:icon="@drawable/ic_menu_workouts"
+                android:title="@string/menu_workouts" />
+            <item
+                android:id="@+id/nav_exercises"
+                android:icon="@drawable/ic_menu_exercises"
+                android:title="@string/menu_exercises" />
+            <item
+                android:id="@+id/nav_devices"
+                android:icon="@drawable/ic_menu_devices"
+                android:title="@string/menu_devices" />
+        </menu>
     </item>
 
     <item android:title="@string/app_settings">

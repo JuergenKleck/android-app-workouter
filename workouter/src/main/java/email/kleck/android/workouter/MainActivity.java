@@ -1,5 +1,6 @@
 package email.kleck.android.workouter;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 
@@ -14,15 +15,25 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 
 import email.kleck.android.workouter.business.DataIntegrator;
+import info.simplyapps.appengine.screens.GenericScreenTemplate;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
+    public int getScreenLayout() {
+        return R.layout.activity_main;
+    }
+
+    public void prepareStorage(Context context) {
+        DataIntegrator.localAppStorage = DataIntegrator.readData(context, null);
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
+        prepareStorage(getApplicationContext());
+        setContentView(getScreenLayout());
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -35,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-        DataIntegrator.localAppStorage = DataIntegrator.readData(getApplicationContext(), null);
     }
 
     @Override
