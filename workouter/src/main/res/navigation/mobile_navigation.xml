@@ -7,31 +7,31 @@
 
     <fragment
         android:id="@+id/nav_training"
-        android:name="email.kleck.android.workouter.ui.training.TrainingFragment"
+        android:name="com.juergenkleck.android.app.workouter.ui.training.TrainingFragment"
         android:label="@string/menu_training"
         tools:layout="@layout/fragment_training" />
 
     <fragment
         android:id="@+id/nav_workouts"
-        android:name="email.kleck.android.workouter.ui.workouts.WorkoutFragment"
+        android:name="com.juergenkleck.android.app.workouter.ui.workouts.WorkoutFragment"
         android:label="@string/menu_workouts"
         tools:layout="@layout/fragment_workouts" />
 
     <fragment
         android:id="@+id/nav_exercises"
-        android:name="email.kleck.android.workouter.ui.exercises.ExerciseFragment"
+        android:name="com.juergenkleck.android.app.workouter.ui.exercises.ExerciseFragment"
         android:label="@string/menu_exercises"
         tools:layout="@layout/fragment_exercises" />
 
     <fragment
         android:id="@+id/nav_devices"
-        android:name="email.kleck.android.workouter.ui.devices.DeviceFragment"
+        android:name="com.juergenkleck.android.app.workouter.ui.devices.DeviceFragment"
         android:label="@string/menu_devices"
         tools:layout="@layout/fragment_devices" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="email.kleck.android.workouter.ui.settings.SettingFragment"
+        android:name="com.juergenkleck.android.app.workouter.ui.settings.SettingFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
 
